@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'ce' => [
+        'base_url' => env('CE_BASE_URL'),
+        'apikey' => env('CE_APIKEY'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
