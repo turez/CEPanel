@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::get('/orders', [OrdersController::class, 'inProgressIndex'])->name('orders.index');
+Route::get('/orders/top-products', [OrdersController::class, 'topProductsIndex'])->name('orders.top_products');
+

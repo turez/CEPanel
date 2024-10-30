@@ -23,4 +23,16 @@ class OrdersController extends Controller
         ]);
     }
 
+    /**
+     * Display the top five products of orders in progress
+     */
+    public function topProductsIndex(CEService $cEService): View
+    {
+        $topProducts = $cEService->getTopFiveProductsInProgressStatus();
+
+        return view('top_five', [
+            'topProducts' => $topProducts,
+        ]);
+    }
+
 }
