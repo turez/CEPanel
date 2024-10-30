@@ -33,7 +33,7 @@
                                                 <td class="whitespace-nowrap px-6 py-4"> {{ $order['orderNo'] }} </td>
                                                 <td class="whitespace-nowrap px-6 py-4"> {{ $order['createdAt'] }} </td>
                                                 <td class="whitespace-nowrap px-6 py-4"> {{ $orderLine['status'] }} </td>
-                                                <td class="whitespace-nowrap px-6 py-4"> {{ $orderLine['gtin'] }} </td>
+                                                <td class="whitespace-nowrap px-6 py-4"> {{ $orderLine['gtin'] ?? 'N/A' }} </td>
                                                 <td class="whitespace-nowrap px-6 py-7"> {{ $orderLine['productNo'] }} </td>
                                                 <td class="whitespace-nowrap px-6 py-4"> {{ $orderLine['productName'] }} </td>
                                                 <td class="whitespace-nowrap px-6 py-4"> {{ $orderLine['quantity'] }} </td>

@@ -3,18 +3,14 @@
 namespace App\Services\CE;
 
 use DateTime;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
-use InvalidArgumentException;
-use JsonException;
 
 class OrdersResponse
 {
     private LengthAwarePaginator $orders;
 
-    public function __construct(Response $response, int $page)
+    public function __construct(array $data, int $page)
     {
-        $data = $this->convertResponseToArray($response);
         $orders = [];
 
         foreach ($data['Content'] as $item) {
@@ -48,19 +44,5 @@ class OrdersResponse
             'createdAt' => (new DateTime($item['CreatedAt']))->format('Y-m-d H:i:s'),
             'orderLines' => $orderLines
         ];
-    }
-
-    private function convertResponseToArray(Response $response): array
-    {
-        try {
-            return json_decode(
-                $response->getBody()->getContents(),
-                true,
-                512,
-                JSON_THROW_ON_ERROR
-            );
-        } catch (JsonException $exception) {
-            throw new InvalidArgumentException('Response from CE is not a valid JSON');
-        }
     }
 }

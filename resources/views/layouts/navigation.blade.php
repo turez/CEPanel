@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('orders.top_products')" :active="request()->routeIs('orders.top_products')">
                         {{ __('Top Products') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('product.update_stock')" :active="request()->routeIs('product.update_stock')">
+                        {{ __('Update Product Stock') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -41,6 +44,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('orders.top_products')" :active="request()->routeIs('orders.top_products')">
                 {{ __('Top products') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('product.update_stock')" :active="request()->routeIs('product.update_stock')">
+                {{ __('Update Product Stock') }}
             </x-responsive-nav-link>
         </div>
     </div>

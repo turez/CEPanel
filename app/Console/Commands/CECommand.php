@@ -17,6 +17,7 @@ class CECommand extends Command
     protected const ACTION_MAPPING = [
         self::ACTION_LIST_ORDERS_IN_PROGRESS => 'listOrdersInProgress',
         self::ACTION_LIST_TOP_FIVE => 'listTopFive',
+        self::ACTION_UPDATE_STOCK => 'updateProductStock',
         self::ACTION_EXIT => null,
     ];
 
@@ -89,6 +90,20 @@ class CECommand extends Command
             ['GTIN', 'Name', 'Total Quantity'],
             $topProducts
         );
+    }
+
+    private function updateProductStock(): void
+    {
+        $productNo = $this->ask('Insert Product No');
+        $this->validatePrompt($productNo, ['string', 'max:255']);
+
+        $success = $this->cEService->updateToDefaultStock($productNo);
+
+        if ($success) {
+            $this->info("Product stock successfully updated.");
+        } else {
+            $this->error("Failed to update stock.");
+        }
     }
 
     private function getMenuChoices()

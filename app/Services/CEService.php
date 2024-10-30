@@ -49,7 +49,8 @@ class CEService
             ->all();
     }
 
-    public function updateStock(string $ProductNo, int $stock)
+    public function updateToDefaultStock(string $productNo)
     {
+        return $this->cEAdapter->updateStock($productNo, 25);
     }
 }

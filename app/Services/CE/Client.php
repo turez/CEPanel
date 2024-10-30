@@ -5,8 +5,6 @@ namespace App\Services\CE;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
-use InvalidArgumentException;
-use JsonException;
 
 class Client
 {
@@ -16,15 +14,22 @@ class Client
 
     public function __construct()
     {
+        $baseUrl = config('services.ce.base_url');
+        $apikey = config('services.ce.apikey');
+
+        if (null === $baseUrl || null === $apikey) {
+            throw new CEConnectionException('CE configuration is missing.');
+        }
+
         $this->client = new GuzzleHttpClient([
-            'base_uri' =>  config('services.ce.base_url'),
+            'base_uri' => $baseUrl,
             'timeout' => 0,
         ]);
 
         $this->defaultHeaders = [
             'accept' => 'application/json',
         ];
-        $this->apikeyAuth = ['apikey' => config('services.ce.apikey')];
+        $this->apikeyAuth = ['apikey' => $apikey];
     }
 
     /**
@@ -38,7 +43,7 @@ class Client
             [
                 'headers' => array_merge($this->defaultHeaders, $extraHeaders),
                 'query' => array_merge($params, $this->apikeyAuth),
-                'json' => $body
+                'json' => $body,
             ]
         );
 
