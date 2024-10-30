@@ -30,7 +30,7 @@ class Client
     /**
      * @throws GuzzleException
      */
-    public function makeRequest($method, $uri, array $params = [], $extraHeaders = []): array
+    public function makeRequest($method, $uri, array $params = [], $body = [], $extraHeaders = []): Response
     {
         $response = $this->client->request(
             $method,
@@ -38,23 +38,10 @@ class Client
             [
                 'headers' => array_merge($this->defaultHeaders, $extraHeaders),
                 'query' => array_merge($params, $this->apikeyAuth),
+                'json' => $body
             ]
         );
 
-        return $this->convertResponseToArray($response);
-    }
-
-    private function convertResponseToArray(Response $response): array
-    {
-        try {
-            return json_decode(
-                $response->getBody()->getContents(),
-                true,
-                512,
-                JSON_THROW_ON_ERROR
-            );
-        } catch (JsonException $exception) {
-            throw new InvalidArgumentException('Response from CE is not a valid JSON');
-        }
+        return $response;
     }
 }

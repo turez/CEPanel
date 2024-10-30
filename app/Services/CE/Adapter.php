@@ -2,6 +2,8 @@
 
 namespace App\Services\CE;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class Adapter
 {
     public function __construct(
@@ -9,7 +11,7 @@ class Adapter
     ) { 
     }
 
-    public function getOrdersByStatus(string $statuses, int $page): array {
+    public function getOrdersByStatus(string $statuses, int $page): LengthAwarePaginator {
 
         $response = $this->cEClient->makeRequest(
             'get',
@@ -17,7 +19,9 @@ class Adapter
             ['statuses' => $statuses, 'page' => $page],
         );
 
-        return $response;
+        $ordersResponse = new OrdersResponse($response, $page);
+
+        return $ordersResponse->getOrders();
     }
 
     public function updateStock(string $ProductNo, int $stock)

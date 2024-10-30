@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Services\CE\Adapter;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CEService
 {
@@ -11,6 +12,11 @@ class CEService
     public function __construct(
         private Adapter $cEAdapter,
     ) {
+    }
+
+    public function getOrdersInProgress(int $page): LengthAwarePaginator
+    {   
+        return $this->cEAdapter->getOrdersByStatus(self::STATUS_IN_PROGRESS, $page);
     }
 
     public function getTopFiveProductsInProgressStatus()
