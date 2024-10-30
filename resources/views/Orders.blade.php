@@ -23,7 +23,7 @@
                                         <th scope="col" class="px-6 py-4">Product No</th>
                                         <th scope="col" class="px-6 py-4">Name</th>
                                         <th scope="col" class="px-6 py-4">Quantity</th>
-                                        <th scope="col" class="px-6 py-4">Price</th>
+                                        <th scope="col" class="px-6 py-4">Total Price</th>
                                     </tr>
                                 </thead>
                                 <tbody>

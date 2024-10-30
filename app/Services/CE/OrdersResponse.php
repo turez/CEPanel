@@ -20,7 +20,7 @@ class OrdersResponse
         foreach ($data['Content'] as $item) {
             $orders[] = $this->formatOrderFromResponse($item);
         }
-        
+
         $this->orders = new LengthAwarePaginator($orders, $data['TotalCount'], $data['ItemsPerPage'], $page);
     }
 
@@ -31,7 +31,7 @@ class OrdersResponse
 
     protected function formatOrderFromResponse($item): array
     {
-        $orderLines = array_map(function($orderLine) {
+        $orderLines = array_map(function ($orderLine) {
             return [
                 'status' => $orderLine['Status'],
                 'gtin' => $orderLine['Gtin'],
