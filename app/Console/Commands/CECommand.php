@@ -16,6 +16,7 @@ class CECommand extends Command
 
     protected const ACTION_MAPPING = [
         self::ACTION_LIST_ORDERS_IN_PROGRESS => 'listOrdersInProgress',
+        self::ACTION_LIST_TOP_FIVE => 'listTopFive',
         self::ACTION_EXIT => null,
     ];
 
@@ -79,6 +80,15 @@ class CECommand extends Command
                 $page++;
             }
         } while ($orders->hasMorePages());
+    }
+
+    private function listTopFive(): void
+    {
+        $topProducts = $this->cEService->getTopFiveProductsInProgressStatus();
+        $this->table(
+            ['GTIN', 'Name', 'Total Quantity'],
+            $topProducts
+        );
     }
 
     private function getMenuChoices()
